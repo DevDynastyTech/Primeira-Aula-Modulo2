@@ -69,11 +69,11 @@ class Dinosaur:
         self.image = DUCKING[0] if self.step_index < 5 else DUCKING[1]
         self.dino_rect = self.image.get_rect()
         self.dino_rect.x = X_POS
-        self.dino_rect.y = Y_POS + 40
+        self.dino_rect.y = Y_POS + 40 
         self.step_index += 1
 
     def draw(self, screen):
         if self.dino_duck:
             screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
         else:
-            screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y))
+            screen.blit(self.image, (self.dino_rect.x, self.dino_rect.y)) 
