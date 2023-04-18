@@ -17,7 +17,7 @@ class ObstacleManager:
                 self.obstacles.append(Cactus(SMALL_CACTUS))
             elif obstacle_type == 1:
                 self.obstacles.append(LargeCactus(LARGE_CACTUS))
-            
+
             elif obstacle_type == 2:
                 self.obstacles.append(Bird(BIRD))
 
@@ -26,7 +26,11 @@ class ObstacleManager:
             if game.player.dino_rect.colliderect(obstacle.rect):
                 pygame.time.delay(500)
                 game.playing = False
+                game.death_count += 1
                 break
+
+    def reset_obstacles(self):
+        self.obstacles = []
 
     def draw(self, screen):
         for obstacle in self.obstacles:
