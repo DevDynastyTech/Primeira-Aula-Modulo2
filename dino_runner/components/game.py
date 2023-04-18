@@ -36,6 +36,9 @@ class Game:
     def run(self):
         # Game loop: events - update - draw
         self.playing = True
+        # self.game_speed e self.score definem o score e a velocidade do jogo após o rr
+        self.game_speed = 20
+        self.score = 0
         self.obstacle_manager.reset_obstacles()
         while self.playing:
             self.events()
@@ -76,6 +79,14 @@ class Game:
         pygame.display.update()
         pygame.display.flip()
 
+    def draw_text(self, text, size, color, x, y):
+        font = pygame.font.Font(FONT_STYLE, size)
+        # Remove a repetição de codigo para o texto
+        text_surface = font.render(text, True, color)
+        text_rect = text_surface.get_rect()
+        text_rect.midtop = (x, y)
+        self.screen.blit(text_surface, text_rect)
+
     def draw_background(self):
         image_width = BG.get_width()
         self.screen.blit(BG, (self.x_pos_bg, self.y_pos_bg))
@@ -104,10 +115,24 @@ class Game:
             text_rect = text.get_rect()
             text_rect.center = (half_screen_width, half_screen_height)
             self.screen.blit(text, text_rect)
+
+        elif self.death_count > 0:  # exibe o numero de mortes, o score e a msg para rr
+            self.draw_text("Press any key to restart", 22, (0, 0, 0),
+                           SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
+            self.draw_text(f"Score: {self.score}", 22, (0, 0, 0),
+                           SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
+            self.draw_text(f"Deaths: {self.death_count}", 22,
+                           (0, 0, 0), SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 75)
+
         else:
             self.screen.blit(ICON, (half_screen_width -
                              20, half_screen_height - 140))
+            # mostrar mensagem de "Press any key to restart"
+            # mostrar score atingido
+            # mostrar death_count
 
-        pygame.display.flip()
+            # Resetar score e game_speed quando o jogo for 'restartado'
+            # Criar método para remover a repetição de código para o texto
+        pygame.display.flip()  # .update()S
 
         self.handle_events_on_menu()
