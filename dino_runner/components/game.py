@@ -133,29 +133,16 @@ class Game:
         half_screen_width = SCREEN_WIDTH // 2
 
         if self.death_count == 0:
-            font = pygame.font.Font(FONT_STYLE, 22)
-            text = font.render("Press any key to start", True, (0, 0, 0))
-            text_rect = text.get_rect()
-            text_rect.center = (half_screen_width, half_screen_height)
-            self.screen.blit(text, text_rect)
+            self.draw_text("Press any key to start", 22, (0, 0, 0),
+                           half_screen_width, half_screen_height)
 
-        elif self.death_count > 0:  # exibe o numero de mortes, o score e a msg para rr
+        elif self.death_count > 0:
             self.draw_text("Press any key to restart", 22, (0, 0, 0),
-                           SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 100)
+                           half_screen_width, half_screen_height + 100)
             self.draw_text(f"Score: {self.score}", 22, (0, 0, 0),
-                           SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 50)
-            self.draw_text(f"Deaths: {self.death_count}", 22,
-                           (0, 0, 0), SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2 + 75)
+                           half_screen_width, half_screen_height + 150)
+            self.draw_text(f"Death count: {self.death_count}", 22, (0, 0, 0),
+                           half_screen_width, half_screen_height + 200)
 
-        else:
-            self.screen.blit(ICON, (half_screen_width -
-                             20, half_screen_height - 140))
-            # mostrar mensagem de "Press any key to restart"
-            # mostrar score atingido
-            # mostrar death_count
-
-            # Resetar score e game_speed quando o jogo for 'restartado'
-            # Criar método para remover a repetição de código para o texto
-        pygame.display.flip()  # .update()S
-
+        pygame.display.flip()
         self.handle_events_on_menu()
