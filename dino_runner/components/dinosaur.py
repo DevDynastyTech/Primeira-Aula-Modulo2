@@ -1,20 +1,29 @@
 import pygame
 from pygame.sprite import Sprite
 
-from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING, DEFAULT_TYPE, SHIELD_TYPE, DUCKING_SHIELD, JUMPING_SHIELD, RUNNING_SHIELD, HAMMER_TYPE, RUNNING_HAMMER, DUCKING_HAMMER, JUMPING_HAMMER, HEART, HEART_TYPE
+from dino_runner.utils.constants import RUNNING, JUMPING, DUCKING, DEFAULT_TYPE, SHIELD_TYPE, DUCKING_SHIELD, JUMPING_SHIELD, RUNNING_SHIELD, HAMMER_TYPE, DUCKING_HAMMER, JUMPING_HAMMER, RUNNING_HAMMER
+
 
 X_POS = 80
 Y_POS = 310
 JUMP_VEL = 8.5
 
 
-DUCK_IMG = {DEFAULT_TYPE: DUCKING,
-            SHIELD_TYPE: DUCKING_SHIELD, HAMMER_TYPE: DUCKING_HAMMER}
-RUN_IMG = {DEFAULT_TYPE: RUNNING,
-           SHIELD_TYPE: RUNNING_SHIELD, HAMMER_TYPE: RUNNING_HAMMER}
-JUMP_IMG = {DEFAULT_TYPE: JUMPING,
-            SHIELD_TYPE: JUMPING_SHIELD, HAMMER_TYPE: JUMPING_HAMMER}
-HEART_IMG = {HEART_TYPE: HEART}
+RUN_IMG = {
+    DEFAULT_TYPE: RUNNING,
+    SHIELD_TYPE: RUNNING_SHIELD,
+    HAMMER_TYPE: RUNNING_HAMMER
+}
+DUCK_IMG = {
+    DEFAULT_TYPE: DUCKING,
+    SHIELD_TYPE: DUCKING_SHIELD,
+    HAMMER_TYPE: DUCKING_HAMMER
+}
+JUMP_IMG = {
+    DEFAULT_TYPE: JUMPING,
+    SHIELD_TYPE: JUMPING_SHIELD,
+    HAMMER_TYPE: JUMPING_HAMMER
+}
 
 
 class Dinosaur:
@@ -34,12 +43,9 @@ class Dinosaur:
     def setup_state(self):
         self.has_power_up = False
         self.shield = False
+        self.hammer = False
         self.show_text = False
         self.power_up_time = 0
-        self.has_hammer = False
-        self.has_hammer = False
-        self.attacking = False
-        self.hearts = False
 
     def update(self, user_input):
         if self.dino_run:
@@ -48,9 +54,6 @@ class Dinosaur:
             self.jump()
         elif self.dino_duck:
             self.duck()
-            if self.dino_run:
-                if self.has_hammer and not self.attacking:
-                    self.image
 
         if user_input[pygame.K_UP] and not self.dino_jump:
             self.dino_jump = True
